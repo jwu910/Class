@@ -9,23 +9,27 @@
 # Longest substring in alphabetical order is: abc
 
 # Test string
-s = 'abcdefg'
+s = 'abcedfghijklmnopqrstuvwxyz'
 # s = 'a'
 # ----------------------copy below this line -----------------------
-index = 0
 longest = ''
 temp = ''
-strings = []
-print(s,len(s))
 if len(s) == 1:
-    print(s)
+    print('Longest substring in alphabetical order is:',s)
 elif len(s) > 1:
     for i in range(0,len(s)-1):
-        if s[index] <= s[index+1]:
-            temp = temp + s[index]
-            index += 1
-        elif s[index] > s[index+1]:
-            strings.append(temp)
+        if s[i] <= s[i+1]:
+            temp += s[i]
+            if i == len(s)-2:                   # If letter is the last letter
+                if s[i] >= s[i-1]:              # Check if letter is greater than preceeding
+                    temp += s[i+1]              # If so, add letter to end of temp string
+                if len(temp) > len(longest):    # If temp string is longer than longest string
+                    longest = temp              # Replace longest with temp
+                    temp = ''                   # Reset temp             
+        elif s[i] > s[i+1]:
+            temp += s[i]                        # Break process and add last letter in to temp string
+            if len(temp) > len(longest):        # Check if length is longer than longest
+                longest = temp
+                temp = ''
             temp = ''
-            index += 1
-print(strings)
+print('Longest substring in alphabetical order is:',longest)
