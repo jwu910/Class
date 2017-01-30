@@ -21,24 +21,5 @@ monMid = (monLow + monHigh) / 2.0
 TOL = .01
 counter = 0
 
-print(remBal, monLow, monHigh, TOL)
-while abs((monMid * 12)-balance) >= TOL:
-#while counter <= maxIter:
-    monMid = 0.5 * (monLow + monHigh)
-    print('counter =',counter)
-    print('Low =',monLow)
-    print('MId =',monMid)
-    print('high =',monHigh)
-    if monMid == 0 or abs((monHigh - monLow) / 2.0) <= TOL:
-        print(round(monMid,2))
-        
-    if monMid*12 > remBal:
-        print("monMid = ", monMid*12)
-        monLow = monMid
-    else:
-        monHigh = monMid
-    counter += 1
-    if counter > maxIter:
-        break
-    
-print(monMid)
+print(remBal, monLow, monMid, monHigh, TOL)
+
