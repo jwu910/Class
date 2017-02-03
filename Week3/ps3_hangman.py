@@ -42,6 +42,7 @@ def chooseWord(wordlist):
 # Load the list of words into the variable wordlist
 # so that it can be accessed from anywhere in the program
 wordlist = loadWords()
+secretWord = chooseWord(wordlist)
 
 def isWordGuessed(secretWord, lettersGuessed):
     '''
@@ -62,8 +63,10 @@ def getGuessedWord(secretWord, lettersGuessed):
       what letters in secretWord have been guessed so far.
     '''
     # FILL IN YOUR CODE HERE...
+    secretWord_guess = secretWord.split()
+    lettersGuessed = ['_ '*len(secretWord)]
 
-
+    return secretWord_guess, "".join(lettersGuessed)
 
 def getAvailableLetters(lettersGuessed):
     '''
@@ -72,7 +75,11 @@ def getAvailableLetters(lettersGuessed):
       yet been guessed.
     '''
     # FILL IN YOUR CODE HERE...
-    
+    alphabet = list('abcdefghijklmnopqrstuvwxyz')
+    for letter in lettersGuessed:
+        if letter in alphabet:
+            alphabet[alphabet.index(letter)] = " "
+    return "".join(alphabet)
 
 def hangman(secretWord):
     '''
@@ -94,11 +101,14 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    # FILL IN YOUR CODE HERE...
+    lettersGuessed = []
+    
+    print(secretWord)
 
-
-
-
+    print(getGuessedWord(secretWord,lettersGuessed))
+    print(getAvailableLetters(lettersGuessed))
+    print(lettersGuessed)
+hangman(secretWord)
 
 
 # When you've completed your hangman function, uncomment these two lines
