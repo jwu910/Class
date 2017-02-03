@@ -52,6 +52,12 @@ def isWordGuessed(secretWord, lettersGuessed):
       False otherwise
     '''
     # FILL IN YOUR CODE HERE...
+    return False
+    if all(letter in secretWord for letter in lettersGuessed):
+        print('lettesr have been guessed!')
+    else:
+        print("lettesr have not been guessed")
+
 
 
 
@@ -66,7 +72,10 @@ def getGuessedWord(secretWord, lettersGuessed):
     secretWord_guess = secretWord.split()
     lettersGuessed = ['_ '*len(secretWord)]
 
-    return secretWord_guess, "".join(lettersGuessed)
+
+
+
+    return "".join(lettersGuessed)
 
 def getAvailableLetters(lettersGuessed):
     '''
@@ -78,7 +87,7 @@ def getAvailableLetters(lettersGuessed):
     alphabet = list('abcdefghijklmnopqrstuvwxyz')
     for letter in lettersGuessed:
         if letter in alphabet:
-            alphabet[alphabet.index(letter)] = " "
+            alphabet[alphabet.index(letter)] = ""
     return "".join(alphabet)
 
 def hangman(secretWord):
@@ -102,12 +111,22 @@ def hangman(secretWord):
     Follows the other limitations detailed in the problem write-up.
     '''
     lettersGuessed = []
+    totalGuesses = len(secretWord)
+    print("Welcome to the game, Hangman!")
+    print("I am thinking of a word that is",str(len(secretWord)),"letters long.")
+    while isWordGuessed(secretWord,lettersGuessed) == False:
+        print("You have",str(totalGuesses),"guesses left.")
+        print('Available letters:', getAvailableLetters(lettersGuessed))
+        letter = input('Please guess a letter: ')
+        if letter in lettersGuessed:
+            print('Oops! You have already guessed that letter!', secretWord_guess)
+        else:
+            # Call function to add letter to lettersGuessed
+            lettersGuessed.append(letter)
+            print("Good guess!", lettersGuessed)
     
-    print(secretWord)
 
-    print(getGuessedWord(secretWord,lettersGuessed))
-    print(getAvailableLetters(lettersGuessed))
-    print(lettersGuessed)
+    #print(getGuessedWord(secretWord,lettersGuessed))
 hangman(secretWord)
 
 
