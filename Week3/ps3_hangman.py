@@ -69,13 +69,18 @@ def getGuessedWord(secretWord, lettersGuessed):
       what letters in secretWord have been guessed so far.
     '''
     # FILL IN YOUR CODE HERE...
-    secretWord_guess = secretWord.split()
-    lettersGuessed = ['_ '*len(secretWord)]
+    secretWord_list = []
+    secretWord_guess = []
+    for wordLen in range(0,len(secretWord)):
+        secretWord_guess.append('_ ')
+    secretWord_list = list(secretWord)
+    letIndex = 0
+    while letIndex < len(secretWord):
+        if secretWord[letIndex] in lettersGuessed:
+            secretWord_guess[letIndex] = secretWord_list[letIndex]
+        letIndex += 1
 
-
-
-
-    return "".join(lettersGuessed)
+    return "".join(secretWord_guess)
 
 def getAvailableLetters(lettersGuessed):
     '''
@@ -123,17 +128,14 @@ def hangman(secretWord):
         else:
             # Call function to add letter to lettersGuessed
             lettersGuessed.append(letter)
-            print("Good guess!", lettersGuessed)
+            print("Good guess!", secretWord_guess)
     
 
     #print(getGuessedWord(secretWord,lettersGuessed))
 
-secretWord = 'test'
-lettersGuessed = ['s','a','b','c','d','e']
-print(isWordGuessed(secretWord, lettersGuessed))
 # When you've completed your hangman function, uncomment these two lines
 # and run this file to test! (hint: you might want to pick your own
 # secretWord while you're testing)
 
-# secretWord = chooseWord(wordlist).lower()
-# hangman(secretWord)
+secretWord = chooseWord(wordlist).lower()
+hangman(secretWord)
