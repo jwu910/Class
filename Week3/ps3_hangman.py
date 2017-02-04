@@ -69,7 +69,6 @@ def getGuessedWord(secretWord, lettersGuessed):
       what letters in secretWord have been guessed so far.
     '''
     # FILL IN YOUR CODE HERE...
-    secretWord_list = []
     secretWord_guess = []
     for wordLen in range(0,len(secretWord)):
         secretWord_guess.append('_ ')
@@ -93,7 +92,8 @@ def getAvailableLetters(lettersGuessed):
     for letter in lettersGuessed:
         if letter in alphabet:
             alphabet[alphabet.index(letter)] = ""
-    return "".join(alphabet)
+    secretWord_guess = "".join(alphabet)
+    return secretWord_guess
 
 def hangman(secretWord):
     '''
@@ -119,7 +119,8 @@ def hangman(secretWord):
     totalGuesses = len(secretWord)
     print("Welcome to the game, Hangman!")
     print("I am thinking of a word that is",str(len(secretWord)),"letters long.")
-    while isWordGuessed(secretWord,lettersGuessed) == False:
+    while totalGuesses > 0:
+        print('------------')
         print("You have",str(totalGuesses),"guesses left.")
         print('Available letters:', getAvailableLetters(lettersGuessed))
         letter = input('Please guess a letter: ')
@@ -127,11 +128,12 @@ def hangman(secretWord):
             print('Oops! You have already guessed that letter!', secretWord_guess)
         else:
             # Call function to add letter to lettersGuessed
-            if letter not in lettersGuessed:
+            if letter in secretWord:
                 lettersGuessed.append(letter)
                 print("Good guess!", getGuessedWord(secretWord,lettersGuessed))
             else:
-                print('Oops. That letter is not in my word:', secretWord_guess)
+                print('Oops. That letter is not in my word:', getGuessedWord(secretWord, lettersGuessed))
+                totalGuesses -= 1
 
     #print(getGuessedWord(secretWord,lettersGuessed))
 
