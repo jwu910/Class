@@ -116,24 +116,35 @@ def hangman(secretWord):
     Follows the other limitations detailed in the problem write-up.
     '''
     lettersGuessed = []
-    totalGuesses = len(secretWord)
-    print("Welcome to the game, Hangman!")
-    print("I am thinking of a word that is",str(len(secretWord)),"letters long.")
-    while totalGuesses > 0:
-        print('------------')
-        print("You have",str(totalGuesses),"guesses left.")
-        print('Available letters:', getAvailableLetters(lettersGuessed))
-        letter = input('Please guess a letter: ')
-        if letter in lettersGuessed:
-            print('Oops! You have already guessed that letter!', secretWord_guess)
-        else:
-            # Call function to add letter to lettersGuessed
-            if letter in secretWord:
-                lettersGuessed.append(letter)
-                print("Good guess!", getGuessedWord(secretWord,lettersGuessed))
+    totalGuesses = 8
+    print("Welcome to the game Hangman!")
+    print("I am thinking of a word that is",str(len(secretWord)),"letters long")
+    print('------------')    
+    while getGuessedWord(secretWord,lettersGuessed) != secretWord:
+        while totalGuesses > 0:
+            print("You have",str(totalGuesses),"guesses left")
+            print('Available letters:', getAvailableLetters(lettersGuessed))
+            letter = input('Please guess a letter: ').lower()
+            if letter in lettersGuessed:
+                print("Oops! You've already guessed that letter:", getGuessedWord(secretWord,lettersGuessed))
             else:
-                print('Oops. That letter is not in my word:', getGuessedWord(secretWord, lettersGuessed))
-                totalGuesses -= 1
+                # Call function to add letter to lettersGuessed
+                if letter in secretWord:
+                    lettersGuessed.append(letter)
+                    print("Good guess:", getGuessedWord(secretWord,lettersGuessed))
+                    if getGuessedWord(secretWord,lettersGuessed) == secretWord:
+                        print('------------')
+                        print('Congratulations, you won!')
+                        break
+                else:
+                    lettersGuessed.append(letter)
+                    print('Oops! That letter is not in my word:', getGuessedWord(secretWord, lettersGuessed))
+                    totalGuesses -= 1
+            print('------------')
+        if getGuessedWord(secretWord,lettersGuessed) != secretWord:
+            print("Sorry, you ran out of guesses. The word was",secretWord)
+            break
+
 
     #print(getGuessedWord(secretWord,lettersGuessed))
 
