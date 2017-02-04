@@ -127,9 +127,11 @@ def hangman(secretWord):
             print('Oops! You have already guessed that letter!', secretWord_guess)
         else:
             # Call function to add letter to lettersGuessed
-            lettersGuessed.append(letter)
-            print("Good guess!", secretWord_guess)
-    
+            if letter not in lettersGuessed:
+                lettersGuessed.append(letter)
+                print("Good guess!", getGuessedWord(secretWord,lettersGuessed))
+            else:
+                print('Oops. That letter is not in my word:', secretWord_guess)
 
     #print(getGuessedWord(secretWord,lettersGuessed))
 
