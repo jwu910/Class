@@ -72,8 +72,18 @@ def getWordScore(word, n):
     returns: int >= 0
     """
     # TO DO ... <-- Remove this comment when you code this function
-
-
+    wordScore = 0
+    assert word in wordList, "Invalid Word!"
+    for letter in word:
+        wordScore += SCRABBLE_LETTER_VALUES[letter]
+        print(letter, wordScore, SCRABBLE_LETTER_VALUES[letter])
+    wordScore *= len(word)
+    if len(word) == n:
+        wordScore += 50
+    return wordScore
+        
+        
+    
 
 #
 # Problem #2: Make sure you understand how this function works and what it does!
