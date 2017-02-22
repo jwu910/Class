@@ -155,7 +155,7 @@ def updateHand(hand, word):
     # TO DO ... <-- Remove this comment when you code this function
     string = list(hand.keys())
     for letter in word:
-        if letter in string: string.remove(letter)
+        if letter in string: strin[letter] = 0
     return " ".join(string)
 
 
