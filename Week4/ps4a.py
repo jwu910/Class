@@ -228,8 +228,8 @@ def playHand(hand, wordList, n):
       
     """
     # Keep track of the total score
-    tempScore = 0
     totScore = 0
+    tempScore = 0
     inputWord = ''
     
     # As long as there are still letters left in the hand:
@@ -286,11 +286,30 @@ def playGame(wordList):
  
     2) When done playing the hand, repeat from step 1    
     """
-    # TO DO ... <-- Remove this comment when you code this function
-    print("playGame not yet implemented.") # <-- Remove this line when you code the function
-   
+    hand = {}
+    cont = ''
+    while cont != 'e':
+        cont = input('Enter n to deal a new hand, r to replay the last hand, or e to end game: ').lower()
 
-
+        if cont == 'n':
+            
+            hand = dealHand(HAND_SIZE)
+            playHand(hand,wordList,HAND_SIZE)
+            
+        elif cont == 'r':
+            
+            if hand == {}:
+                print('You have not played a hand yet. Please play a new hand first!')
+                print()
+                
+            else: playHand(hand,wordList,HAND_SIZE)
+            
+        elif cont == 'e': break
+    
+        else:
+            print('Invalid command.')
+            print()
+    
 
 #
 # Build data structures used for entire session and play game
