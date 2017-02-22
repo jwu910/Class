@@ -73,10 +73,11 @@ def getWordScore(word, n):
     """
     # TO DO ... <-- Remove this comment when you code this function
     wordScore = 0
+    n = HAND_SIZE
     assert word in wordList, "Invalid Word!"
     for letter in word:
         wordScore += SCRABBLE_LETTER_VALUES[letter]
-        print(letter, wordScore, SCRABBLE_LETTER_VALUES[letter])
+        #print(letter, wordScore, SCRABBLE_LETTER_VALUES[letter])
     wordScore *= len(word)
     if len(word) == n:
         wordScore += 50
@@ -226,35 +227,48 @@ def playHand(hand, wordList, n):
       n: integer (HAND_SIZE; i.e., hand size required for additional points)
       
     """
-    # BEGIN PSEUDOCODE <-- Remove this comment when you code this function; do your coding within the pseudocode (leaving those comments in-place!)
     # Keep track of the total score
+    tempScore = 0
+    totScore = 0
+    inputWord = ''
     
     # As long as there are still letters left in the hand:
-    
+    while any(value > 0 for value in hand.values()):
         # Display the hand
+        displayHand(hand)
         
         # Ask user for input
+        inputWord = input('Enter word, or a "." to indicate that you are finished: ').lower()
         
         # If the input is a single period:
-        
+        if inputWord == '.':
             # End the game (break out of the loop)
-
+            break
             
         # Otherwise (the input is not a single period):
-        
-            # If the word is not valid:
+        else:
             
+            # If the word is not valid:
+            if isValidWord(inputWord,hand,wordList) == False:
                 # Reject invalid word (print a message followed by a blank line)
-
+                inputWord = ''
+                print('Invalid word, please play word in hand or "." to end turn')
+                print('')
+            
             # Otherwise (the word is valid):
-
+            else:
                 # Tell the user how many points the word earned, and the updated total score, in one line followed by a blank line
-                
+                tempScore = getWordScore(inputWord,n)
+                totScore += tempScore
+                print('"'+inputWord+'" earned', tempScore,'points. Total:', totScore, 'points')
+                print()
+                tempScore = 0
                 # Update the hand 
+                hand = updateHand(hand,inputWord)
                 
 
     # Game is over (user entered a '.' or ran out of letters), so tell user the total score
-
+    print('Run out of letters. Total score:',totScore,'points.')
 
 #
 # Problem #5: Playing a game
