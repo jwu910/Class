@@ -74,7 +74,7 @@ def getWordScore(word, n):
     # TO DO ... <-- Remove this comment when you code this function
     wordScore = 0
     n = HAND_SIZE
-    assert word in wordList, "Invalid Word!"
+    
     for letter in word:
         wordScore += SCRABBLE_LETTER_VALUES[letter]
         #print(letter, wordScore, SCRABBLE_LETTER_VALUES[letter])
