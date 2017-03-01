@@ -103,15 +103,16 @@ class Message(object):
                  another letter (string). 
         '''
         lowerAlpha = string.ascii_lowercase
-        upperAlpha = string.ascii_uppercase
-        key = []
+        key = {}
 
-        for letter in range(0,len(26)):
-            try:
-                key.append(letter+key)
-            except IndexError:
-                key.append(letter+(26-key))
-        return key.join("")
+        for letter in range(0,26):
+            if letter+shift > 25:
+                key[letter] = lowerAlpha[(letter+shift)-26]
+            else:
+                key[letter] = lowerAlpha[letter+shift]
+            
+        print('key =', key)
+
         
     def apply_shift(self, shift):
         '''
@@ -225,3 +226,7 @@ print('Actual Output:', plaintext.get_message_text_encrypted())
 ciphertext = CiphertextMessage('jgnnq')
 print('Expected Output:', (24, 'hello'))
 print('Actual Output:', ciphertext.decrypt_message())
+
+test = Message(plaintext)
+testDict = test.build_shift_dict(3)
+print(testDict)
