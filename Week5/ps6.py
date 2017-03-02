@@ -102,16 +102,22 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        lowerAlpha = string.ascii_lowercase
-        key = {}
+        aLow = string.ascii_lowercase
+        aUp = string.ascii_uppercase
+        self.key = {}
 
         for letter in range(0,26):
             if letter+shift > 25:
-                key[letter] = lowerAlpha[(letter+shift)-26]
+                self.key[aLow[letter]] = aLow[(letter + shift)-26]
             else:
-                key[letter] = lowerAlpha[letter+shift]
-            
-        print('key =', key)
+                self.key[aLow[letter]] = aLow[letter + shift]
+        for letter in range(0,26):
+            if letter+shift > 25:
+                self.key[aUp[letter]] = aUp[(letter+shift)-26]
+            else:
+                self.key[aUp[letter]] = aUp[letter+shift]
+        
+        return self.key
 
         
     def apply_shift(self, shift):
@@ -126,7 +132,18 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        pass #delete this line and replace with your code here
+        self.key = self.build_shift_dict(shift)
+        # Need to replace test string with 'self.message_text' when finished
+        
+        returnString = ''
+        tempString = self.message_text
+
+        for letter in str(tempString):
+            if letter.isalpha():
+                returnString += self.key[letter]
+            else: returnString += letter
+        
+        return returnString
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
@@ -227,6 +244,11 @@ ciphertext = CiphertextMessage('jgnnq')
 print('Expected Output:', (24, 'hello'))
 print('Actual Output:', ciphertext.decrypt_message())
 
+
+
+#Test and debug code
 test = Message(plaintext)
 testDict = test.build_shift_dict(3)
 print(testDict)
+teststring = test.apply_shift(3)
+print(test.apply_shift(3))
