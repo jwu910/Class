@@ -222,8 +222,10 @@ class CiphertextMessage(Message):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
-
+        self.message_text = text
+        self.valid_words = load_words(WORDLIST_FILENAME)
+        
+        
     def decrypt_message(self):
         '''
         Decrypt self.message_text by trying every possible shift value
@@ -240,23 +242,43 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         '''
-        pass #delete this line and replace with your code here
+        best = 0
+        tempBest = 0
+        solShift = 0
+        returnList = []
+        words = self.message_text.split(' ')
+        print(words)
+        for s in range(1,26):
+            for word in words:
+                print(word,self.apply_shift(s),s)
+                if is_word(self.valid_words,self.apply_shift(-s)) == True:
+                    returnList.append(self.apply_shift(-s))
+                    tempBest += 1
+                    
+            if tempBest > best: 
+                best = tempBest
+                tempBest = 0
+        return (solShift," ".join(returnList))
+        
+            # Returns tuple (shift value, decrypted text) 
+        
 
 #Example test case (PlaintextMessage)
-plaintext = PlaintextMessage('hello', 2)
-print('Expected Output: jgnnq')
+plaintext = PlaintextMessage('Hello the world is round', 4)
+print('Expected Output: Lipps xli asvph mw vsyrh')
 print('Actual Output:', plaintext.get_message_text_encrypted())
     
 #Example test case (CiphertextMessage)
-ciphertext = CiphertextMessage('jgnnq')
-print('Expected Output:', (24, 'hello'))
+ciphertext = CiphertextMessage('JLipps xli asvph mw vsyrh')
+print('Expected Output:', (4, 'Hello the world is round'))
 print('Actual Output:', ciphertext.decrypt_message())
 
-
+'''
 
 #Test and debug code
 test = Message(plaintext)
 testDict = test.build_shift_dict(3)
 print(testDict)
 teststring = test.apply_shift(3)
-print(test.apply_shift(3))
+print(test.apply_shift(6))
+'''
