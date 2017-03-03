@@ -137,12 +137,15 @@ class Message(object):
         
         returnString = ''
         tempString = self.message_text
-
+        
         for letter in str(tempString):
+        
             if letter.isalpha():
                 returnString += self.key[letter]
-            else: returnString += letter
-        
+                
+            else: 
+                returnString += letter
+                
         return returnString
 
 class PlaintextMessage(Message):
@@ -246,19 +249,22 @@ class CiphertextMessage(Message):
         tempBest = 0
         solShift = 0
         returnList = []
-        words = self.message_text.split(' ')
-        print(words)
-        for s in range(1,26):
+        
+        for s in range(0,26):
+            words = self.apply_shift(26-s).split(' ')
             for word in words:
-                print(word,self.apply_shift(s),s)
-                if is_word(self.valid_words,self.apply_shift(-s)) == True:
-                    returnList.append(self.apply_shift(-s))
+                
+                if is_word(self.valid_words,word) == True:
+                    returnList.append(word)
                     tempBest += 1
-                    
+                                   
             if tempBest > best: 
                 best = tempBest
                 tempBest = 0
-        return (solShift," ".join(returnList))
+        
+        solShift = best
+        sol = " ".join(returnList)
+        return (solShift,sol)
         
             # Returns tuple (shift value, decrypted text) 
         
